@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.movies.R
+import com.example.movies.databinding.FragmentMovieListBinding
 
 class MovieListFragment : Fragment() {
 
@@ -14,8 +16,12 @@ class MovieListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie_list, container, false)
+
+        val binding: FragmentMovieListBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_movie_list, container, false
+        )
+
+        return binding.root
     }
 
 
