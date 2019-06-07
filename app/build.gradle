@@ -57,4 +57,7 @@ dependencies {
     // Moshi for parsing the JSON format
     implementation "com.squareup.moshi:moshi:$moshi_version"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_extensions_version"
 }

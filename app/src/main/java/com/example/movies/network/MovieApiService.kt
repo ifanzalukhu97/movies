@@ -1,6 +1,6 @@
 package com.example.movies.network
 
-import com.example.movies.domain.Movie
+import com.example.movies.domain.Movies
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -27,7 +27,7 @@ private val retrofit = Retrofit.Builder()
 
 interface MovieApiService {
     @GET("now_playing")
-    fun getNowPlayingMovies(@Query("api_key") type: String): Deferred<Movie>
+    fun getNowPlayingMovies(@Query("api_key") type: String): Deferred<Movies>
 }
 
 object MovieApi {

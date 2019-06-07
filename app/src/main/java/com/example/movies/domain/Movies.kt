@@ -3,13 +3,13 @@ package com.example.movies.domain
 import com.squareup.moshi.Json
 
 /**
- * Movie API result object
+ * Movies API result object
  */
-data class Movie(
-    val results: List<Result>
+data class Movies(
+    val results: List<Movie>
 )
 
-data class Result(
+data class Movie(
     val id: Int,
     @Json(name = "vote_average")
     val voteAverage: Double,
