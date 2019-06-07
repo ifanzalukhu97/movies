@@ -1,6 +1,7 @@
 package com.example.movies.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.movies.R
 import com.example.movies.domain.Movie
@@ -21,7 +22,7 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     // Internal Movies List to store movies result from API
-    private val _movies = MutableLiveData<List<Movie>>()
+    private var _movies = MutableLiveData<List<Movie>>()
 
     // External Movies List to store movies result from API
     val movies: LiveData<List<Movie>>
@@ -41,7 +42,7 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
 
                 _movies.value = moviesList.results
             } catch (e: Exception) {
-                _movies.value = ArrayList()
+                Log.e("MovieListViewModel", "getMovieList ${e.message}")
             }
         }
     }
