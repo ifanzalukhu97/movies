@@ -18,7 +18,10 @@ class MovieListFragment : Fragment() {
      * Lazily initialize  [MovieListViewModel]
      */
     private val viewModel: MovieListViewModel by lazy {
-        ViewModelProviders.of(this).get(MovieListViewModel::class.java)
+        val activity = requireNotNull(this.activity)
+
+        ViewModelProviders.of(this, MovieListViewModel.Factory(activity.application))
+            .get(MovieListViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -32,6 +35,4 @@ class MovieListFragment : Fragment() {
 
         return binding.root
     }
-
-
 }

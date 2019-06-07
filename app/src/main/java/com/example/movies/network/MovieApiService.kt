@@ -27,7 +27,7 @@ private val retrofit = Retrofit.Builder()
 
 interface MovieApiService {
     @GET("now_playing")
-    fun getNowPlayingMovies(@Query("api_key") type: String): Deferred<Movies>
+    fun getNowPlayingMoviesAsync(@Query("api_key") type: String): Deferred<Movies>
 }
 
 object MovieApi {
