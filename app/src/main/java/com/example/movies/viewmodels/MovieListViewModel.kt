@@ -47,6 +47,18 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    private val _navigateToSelectedMovie = MutableLiveData<Movie>()
+    val navigateToSelectedMovie: LiveData<Movie>
+        get() = _navigateToSelectedMovie
+
+    fun showMovieDetails(movie: Movie) {
+        _navigateToSelectedMovie.value = movie
+    }
+
+    fun showMovieDetailsComplete() {
+        _navigateToSelectedMovie.value = null
+    }
+
     /**
      * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the
      * Retrofit service to stop.

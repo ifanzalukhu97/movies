@@ -33,7 +33,7 @@
                     android:scaleType="centerCrop"
                     tools:srcCompat="@tools:sample/backgrounds/scenic"
                     android:contentDescription="@string/movie_poster"
-                    app:moviePoster="@{movie.poster}"/>
+                    app:moviePosterLandscape="@{movie.poster}"/>
 
             <LinearLayout
                     android:id="@+id/movie_view"
