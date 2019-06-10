@@ -11,3 +11,6 @@ and implementation [AndroidX / Jetpack](https://developer.android.com/jetpack/) 
 ## Screenshots
 ![](https://github.com/ifanzalukhu97/movies/blob/master/screenshots/screen0.png)
 ![](https://github.com/ifanzalukhu97/movies/blob/master/screenshots/screen1.png)
+
+## UI Prototype
+[Movies App Figma](https://www.figma.com/proto/eWZVsxeORueWA8I32sXJHa6A/Movies-App---Android?node-id=0%3A1&scaling=scale-down)
