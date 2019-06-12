@@ -9,7 +9,6 @@
             android:layout_height="match_parent"
             tools:context=".ui.MovieListFragment"
             android:background="@color/primaryColor"
-            android:padding="8dp"
     >
 
         <HorizontalScrollView
@@ -35,12 +34,15 @@
                 android:id="@+id/rv_movies"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:itemCount="16"
                 tools:listitem="@layout/movie_item"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chips"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:padding="4dp"
         />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,4 +4,6 @@
     <color name="primaryLightColor">#F58B54</color>
     <color name="primaryDarkColor">#211717</color>
     <color name="primaryTextColor">#DFDDC7</color>
+
+    <color name="primaryDarkTransparentColor">#B3211717</color>
 </resources>
