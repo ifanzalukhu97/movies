@@ -66,4 +66,7 @@ dependencies {
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_extensions_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // Material design components
+    implementation "com.google.android.material:material:$material_version"
 }

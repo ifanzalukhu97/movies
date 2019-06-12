@@ -28,23 +28,38 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
     val movies: LiveData<List<Movie>>
         get() = _movies
 
+    val moviesCategoriesFilter = arrayListOf("Popular", "Upcoming", "Top Rated")
+
+    private var currentTextCategory: String = "Now Playing"
+
     init {
-        getMoviesList()
+        getMoviesByCategory(convertStringToPath(currentTextCategory))
     }
 
-    private fun getMoviesList() {
-        coroutineScope.launch {
-            val getMoviesDeferred = MovieApi.retrofitService
-                .getNowPlayingMoviesAsync(apiKeyMovieDB)
+    private fun getMoviesByCategory(path_category: String) {
 
+        coroutineScope.launch {
+            val getMoviesDeferred =
+                MovieApi.retrofitService.getMoviesAsync(path_category, apiKeyMovieDB)
             try {
                 val moviesList = getMoviesDeferred.await()
 
                 _movies.value = moviesList.results
             } catch (e: Exception) {
                 Log.e("MovieListViewModel", "getMovieList ${e.message}")
+                _movies.value = listOf()
             }
         }
+    }
+
+    fun onCategoryFilterChanged(newTextCategory: String, isChecked: Boolean) {
+        currentTextCategory = if (isChecked) {
+            newTextCategory
+        } else {
+            "Now Playing"
+        }
+
+        getMoviesByCategory(convertStringToPath(currentTextCategory))
     }
 
     private val _navigateToSelectedMovie = MutableLiveData<Movie>()
@@ -58,6 +73,14 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
     fun showMovieDetailsComplete() {
         _navigateToSelectedMovie.value = null
     }
+
+    /**
+     * Convert string to path
+     * eq. ["Popular" -> "popular"], ["Top Rated", "top_rated"]
+     */
+    private fun convertStringToPath(text: String): String =
+        text.toLowerCase().replace(" ", "_")
+
 
     /**
      * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the

@@ -8,12 +8,14 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 private const val BASE_URL = "https://api.themoviedb.org/3/movie/"
 
 /**
  * Build the Moshi object as a Retrofit converter
+ * for parsing the JSON format
  */
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -26,8 +28,20 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface MovieApiService {
-    @GET("now_playing")
-    fun getNowPlayingMoviesAsync(@Query("api_key") type: String): Deferred<Movies>
+
+    /**
+     * Get Movies List by Category from API
+     *
+     * @param movieCategory is movies path category (eq. popular, now_playing, top_rated)
+     *
+     * Coroutine Call Adapter allows us to
+     * @return a Deferred<Movies>, a Job with a result
+     */
+    @GET("{category}")
+    fun getMoviesAsync(
+        @Path("category") movieCategory: String,
+        @Query("api_key") apiKey: String
+    ): Deferred<Movies>
 }
 
 object MovieApi {

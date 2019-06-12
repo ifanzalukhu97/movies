@@ -9,10 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.movies.R
 import com.example.movies.databinding.FragmentMovieListBinding
 import com.example.movies.util.MovieClick
 import com.example.movies.util.MovieListAdapter
 import com.example.movies.viewmodels.MovieListViewModel
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import java.util.*
 
 class MovieListFragment : Fragment() {
 
@@ -59,6 +63,39 @@ class MovieListFragment : Fragment() {
             }
         })
 
+        // Get list movies categories from view model and create chip categories filter from the list
+        createChipsMoviesFilter(binding.categoryList, viewModel.moviesCategoriesFilter)
+
         return binding.root
     }
+
+    /**
+     * @param chipGroup Chip Group for inflate category chip
+     * @param categories list of movie category
+     */
+    private fun createChipsMoviesFilter(chipGroup: ChipGroup, categories: ArrayList<String>) {
+        val inflator = LayoutInflater.from(chipGroup.context)
+
+        val categoriesMovie = categories.map { category ->
+            val chip = inflator.inflate(R.layout.category, chipGroup, false) as Chip
+            chip.apply {
+                text = category
+                tag = category
+                setOnCheckedChangeListener { button, isChecked ->
+                    viewModel.onCategoryFilterChanged(button.text as String, isChecked)
+                }
+            }
+            chip
+        }
+
+        // Clear all Chip in Chip Group before append new Chip
+        chipGroup.removeAllViews()
+
+        // Append all Category Chip in Chip Group
+        for (category in categoriesMovie) {
+            chipGroup.addView(category)
+        }
+
+    }
+
 }

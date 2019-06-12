@@ -4,17 +4,44 @@
     <data>
 
     </data>
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.MovieListFragment">
+            tools:context=".ui.MovieListFragment"
+            android:background="@color/primaryColor"
+            android:padding="8dp"
+    >
+
+        <HorizontalScrollView
+                android:id="@+id/chips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+        >
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/category_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true"
+                    android:padding="8dp"/>
+
+        </HorizontalScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_movies"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/movie_item"/>
+                tools:listitem="@layout/movie_item"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chips"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
 
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
