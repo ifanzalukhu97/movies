@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -65,6 +66,25 @@ class MovieListFragment : Fragment() {
 
         // Get list movies categories from view model and create chip categories filter from the list
         createChipsMoviesFilter(binding.categoryList, viewModel.moviesCategoriesFilter)
+
+        binding.searchMovie.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.onMovieSearch(query)
+
+                // Reset the text query after show result movies
+                binding.searchMovie.apply {
+                    setQuery("", false)
+                    clearFocus()
+                    isIconified = true
+                }
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean = true
+        })
+
+
 
         return binding.root
     }

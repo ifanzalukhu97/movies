@@ -6,4 +6,5 @@
     <string name="home_menu">Home</string>
     <string name="favourite_menu">Favourites</string>
     <string name="settings_menu">Settings</string>
+    <string name="search_movie_hint">Search Movie by Title</string>
 </resources>

@@ -14,6 +14,7 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="4dp"
             android:layout_margin="4dp"
+            app:cardBackgroundColor="@color/primaryLightColor"
     >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +34,7 @@
                     android:scaleType="centerCrop"
                     tools:srcCompat="@tools:sample/backgrounds/scenic"
                     android:contentDescription="@string/movie_poster"
-                    app:moviePosterPortrait="@{movie.poster}"/>
+                    app:moviePosterPortrait='@{movie.poster}'/>
 
             <TextView
                     android:id="@+id/movie_title"

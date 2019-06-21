@@ -5,11 +5,9 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.movies.R
 import com.example.movies.domain.Movie
+import com.example.movies.domain.Movies
 import com.example.movies.network.MovieApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class MovieListViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -41,14 +39,19 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
         coroutineScope.launch {
             val getMoviesDeferred =
                 MovieApi.retrofitService.getMoviesAsync(path_category, apiKeyMovieDB)
-            try {
-                val moviesList = getMoviesDeferred.await()
 
-                _movies.value = moviesList.results
-            } catch (e: Exception) {
-                Log.e("MovieListViewModel", "getMovieList ${e.message}")
-                _movies.value = listOf()
-            }
+            setMoviesValue(getMoviesDeferred)
+        }
+    }
+
+    private suspend fun setMoviesValue(moviesListDeferred: Deferred<Movies>) {
+        try {
+            val moviesList = moviesListDeferred.await()
+
+            _movies.value = moviesList.results
+        } catch (e: Exception) {
+            Log.e("MovieListViewModel", "getMovieList ${e.message}")
+            _movies.value = listOf()
         }
     }
 
@@ -81,6 +84,22 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
     private fun convertStringToPath(text: String): String =
         text.toLowerCase().replace(" ", "_")
 
+
+    private fun getSearchMovies(movieTitle: String) {
+        coroutineScope.launch {
+            val getSearchDeferred =
+                MovieApi.retrofitService.getSearchMoviesAsync(movieTitle, apiKeyMovieDB)
+
+            setMoviesValue(getSearchDeferred)
+        }
+    }
+
+
+    fun onMovieSearch(movieTitle: String?) {
+        if (!movieTitle.isNullOrEmpty()) {
+            getSearchMovies(movieTitle)
+        }
+    }
 
     /**
      * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the

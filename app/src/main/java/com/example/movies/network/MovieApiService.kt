@@ -11,7 +11,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://api.themoviedb.org/3/movie/"
+private const val BASE_URL = "https://api.themoviedb.org/3/"
 
 /**
  * Build the Moshi object as a Retrofit converter
@@ -37,9 +37,15 @@ interface MovieApiService {
      * Coroutine Call Adapter allows us to
      * @return a Deferred<Movies>, a Job with a result
      */
-    @GET("{category}")
+    @GET("movie/{category}")
     fun getMoviesAsync(
         @Path("category") movieCategory: String,
+        @Query("api_key") apiKey: String
+    ): Deferred<Movies>
+
+    @GET("search/movie/")
+    fun getSearchMoviesAsync(
+        @Query("query") movieTitle: String,
         @Query("api_key") apiKey: String
     ): Deferred<Movies>
 }
